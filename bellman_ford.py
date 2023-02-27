@@ -3,8 +3,8 @@ class Graph:
         self.V = vertices
         self.graph = []
 
-    def add_edge(self, u, v, w):
-        self.graph.append([u, v, w])
+    def add_edge(self, s, d, w):
+        self.graph.append([s, d, w])
 
     def bellman_ford(self, source, dest):
         dist = [float("Inf")] * self.V
@@ -12,21 +12,21 @@ class Graph:
         pred = [-1] * self.V
 
         for i in range(self.V - 1):
-            for u, v, w in self.graph:
-                if dist[u] != float("Inf") and dist[u] + w < dist[v]:
-                    dist[v] = dist[u] + w
-                    pred[v] = u
+            for s, d, w in self.graph:
+                if dist[s] != float("Inf") and dist[s] + w < dist[d]:
+                    dist[d] = dist[s] + w
+                    pred[d] = s
 
-        for u, v, w in self.graph:
-            if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+        for s, d, w in self.graph:
+            if dist[s] != float("Inf") and dist[s] + w < dist[d]:
                 print("Graph contains negative weight cycle")
                 return
 
         path = []
-        v = dest
-        while v != -1:
-            path.append(v)
-            v = pred[v]
+        d = dest
+        while d != -1:
+            path.append(d)
+            d = pred[d]
         path.reverse()
 
         print(
@@ -35,13 +35,10 @@ class Graph:
 
 
 g = Graph(5)
-g.add_edge(0, 1, -1)
+g.add_edge(0, 1, 5)
 g.add_edge(0, 2, 4)
-g.add_edge(1, 2, 3)
-g.add_edge(1, 3, 2)
-g.add_edge(1, 4, 2)
-g.add_edge(3, 2, 5)
-g.add_edge(3, 1, 1)
-g.add_edge(4, 3, -3)
+g.add_edge(1, 3, 3)
+g.add_edge(2, 1, 6)
+g.add_edge(3, 2, 2)
 
-g.bellman_ford(0, 4)
+g.bellman_ford(0, 3)
