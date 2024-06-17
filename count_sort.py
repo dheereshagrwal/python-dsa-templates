@@ -14,8 +14,10 @@ def count_sort(arr):
         count[arr[i]] -= 1
         output[count[arr[i]]] = arr[i]
 
-    return output
+    for i in range(n):
+        arr[i] = output[i]
 
 
 arr = [1, 2, 4, 3, 5, 6, 7, 8, 9, 10]
-print(count_sort(arr))
+count_sort(arr)
+print(arr)

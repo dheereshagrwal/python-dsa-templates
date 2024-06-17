@@ -25,8 +25,8 @@ def radix_sort(arr):
     while mx // place:
         count_sort(arr, place)
         place *= 10
-    return arr
 
 
 arr = [222, 153, 20, 654, 751]
-print(radix_sort(arr))
+radix_sort(arr)
+print(arr)

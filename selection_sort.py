@@ -7,7 +7,7 @@ def selection_sort(arr):
                 min_idx = j
         if min_idx != i:
             arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    return arr
 
 arr = [1, 2, 4, 3, 5, 6, 7, 8, 9, 10]
-print(selection_sort(arr))
+selection_sort(arr)
+print(arr)

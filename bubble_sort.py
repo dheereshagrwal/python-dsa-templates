@@ -5,8 +5,6 @@ def bubble_sort(arr):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
-    return arr
-
 
 def bubble_sort_optimized(arr):
     n = len(arr)
@@ -17,8 +15,8 @@ def bubble_sort_optimized(arr):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
                 swapped = True
-    return arr
 
 
 arr = [1, 2, 4, 3, 5, 6, 7, 8, 9, 10]
-print(bubble_sort_optimized(arr))
+bubble_sort_optimized(arr)
+print(arr)
