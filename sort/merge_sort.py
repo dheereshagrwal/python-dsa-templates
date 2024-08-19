@@ -1,18 +1,18 @@
-def merge_sort(arr, l, r):
-    if l >= r:
+def merge_sort(arr, low, high):
+    if low >= high:
         return
-    mid = (l + r) // 2
-    merge_sort(arr, l, mid)
-    merge_sort(arr, mid + 1, r)
-    merge(arr, l, mid, r)
+    mid = (low + high) >> 1
+    merge_sort(arr, low, mid)
+    merge_sort(arr, mid + 1, high)
+    merge(arr, low, mid, high)
 
 
-def merge(arr, l, mid, r):
-    left_arr = arr[l : mid + 1]
-    right_arr = arr[mid + 1 : r + 1]
+def merge(arr, low, mid, high):
+    left_arr = arr[low : mid + 1]
+    right_arr = arr[mid + 1 : high + 1]
     i = 0
     j = 0
-    k = l
+    k = low
     while i < len(left_arr) and j < len(right_arr):
         if left_arr[i] <= right_arr[j]:
             arr[k] = left_arr[i]
@@ -22,14 +22,12 @@ def merge(arr, l, mid, r):
             j += 1
         k += 1
 
-    while i < len(left_arr):
+    for i in range(i, len(left_arr)):
         arr[k] = left_arr[i]
-        i += 1
         k += 1
 
-    while j < len(right_arr):
+    for j in range(j, len(right_arr)):
         arr[k] = right_arr[j]
-        j += 1
         k += 1
 
 
