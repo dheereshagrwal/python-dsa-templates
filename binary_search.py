@@ -5,7 +5,7 @@ def binary_search(arr, x):
     """
     low, high = 0, len(arr) - 1
     while low <= high:
-        mid = (low + high) // 2
+        mid = (low + high) >> 1
         if arr[mid] == x:
             return mid
         elif arr[mid] < x:
@@ -21,7 +21,7 @@ def binary_search(arr, x, low, high):
     Returns the index of x in arr if found, otherwise returns -1
     """
     while low <= high:
-        mid = (low + high) // 2
+        mid = (low + high) >> 1
         if arr[mid] == x:
             return mid
         elif arr[mid] < x:
