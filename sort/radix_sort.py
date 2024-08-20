@@ -3,17 +3,17 @@ def count_sort(arr, place):
     output = [0] * n
     count = [0] * 10
 
-    for i in range(n):
-        digit = (arr[i] // place) % 10
+    for num in arr:
+        digit = (num // place) % 10
         count[digit] += 1
 
     for i in range(1, 10):
         count[i] += count[i - 1]
 
-    for i in range(n - 1, -1, -1):
-        digit = (arr[i] // place) % 10
+    for num in reversed(arr):
+        digit = (num // place) % 10
         count[digit] -= 1
-        output[count[digit]] = arr[i]
+        output[count[digit]] = num
 
     for i in range(n):
         arr[i] = output[i]
