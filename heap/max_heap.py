@@ -1,4 +1,4 @@
-class MinHeap:
+class MaxHeap:
     def __init__(self, data=[]):
         self.arr = data.copy()
         self.n = len(self.arr)
@@ -16,32 +16,32 @@ class MinHeap:
 
     def heapify(self, i, n):
         while True:
-            smallest = i
+            largest = i
             l, r = self.left(i), self.right(i)
-            if l < n and self.arr[l] < self.arr[smallest]:
-                smallest = l
-            if r < n and self.arr[r] < self.arr[smallest]:
-                smallest = r
-            if smallest == i:
+            if l < n and self.arr[l] > self.arr[largest]:
+                largest = l
+            if r < n and self.arr[r] > self.arr[largest]:
+                largest = r
+            if largest == i:
                 break
-            self.arr[i], self.arr[smallest] = self.arr[smallest], self.arr[i]
-            i = smallest
+            self.arr[i], self.arr[largest] = self.arr[largest], self.arr[i]
+            i = largest
 
     def insert(self, x):
         self.arr.append(x)
         i = self.n
         self.n += 1
-        while i > 0 and self.arr[self.parent(i)] > self.arr[i]:
+        while i > 0 and self.arr[i] > self.arr[self.parent(i)]:
             self.arr[i], self.arr[self.parent(i)] = (
                 self.arr[self.parent(i)],
                 self.arr[i],
             )
             i = self.parent(i)
 
-    def extract_min(self):
+    def extract_max(self):
         if not self.arr:
             raise IndexError("Heap is empty")
-        min_val = self.arr[0]
+        max_val = self.arr[0]
         if self.n == 1:
             self.n -= 1
             return self.arr.pop()
@@ -49,15 +49,15 @@ class MinHeap:
         self.n -= 1
         self.arr[0] = last
         self.heapify(0, self.n)
-        return min_val
+        return max_val
 
-    def decrease_key(self, i, new_val):
+    def increase_key(self, i, new_val):
         if i < 0 or i >= self.n:
             raise IndexError("Index out of range")
-        if new_val > self.arr[i]:
-            raise ValueError("New value must be ≤ current value")
+        if new_val < self.arr[i]:
+            raise ValueError("New value must be ≥ current value")
         self.arr[i] = new_val
-        while i > 0 and self.arr[self.parent(i)] > self.arr[i]:
+        while i > 0 and self.arr[i] > self.arr[self.parent(i)]:
             self.arr[i], self.arr[self.parent(i)] = (
                 self.arr[self.parent(i)],
                 self.arr[i],
@@ -69,14 +69,14 @@ class MinHeap:
             raise IndexError("Heap is empty")
         if idx < 0 or idx >= self.n:
             raise IndexError("Index out of range")
-        self.decrease_key(idx, float("-inf"))
-        self.extract_min()
+        self.increase_key(idx, float("inf"))
+        self.extract_max()
 
-    def increase_key(self, i, new_val):
+    def decrease_key(self, i, new_val):
         if i < 0 or i >= self.n:
             raise IndexError("Index out of range")
-        if new_val < self.arr[i]:
-            raise ValueError("New value must be ≥ current value")
+        if new_val > self.arr[i]:
+            raise ValueError("New value must be ≤ current value")
         self.arr[i] = new_val
         self.heapify(i, self.n)
 
@@ -87,18 +87,4 @@ class MinHeap:
 
     def __str__(self):
         return str(self.arr)
-
-
-
-# Example usage
-
-heap = MinHeap([3, 1, 4, 1, 5])
-print(heap)  # Should be a valid min-heap, e.g., [1, 1, 4, 3, 5]
-heap.insert(0)
-print(heap)  # Should include 0 and maintain min-heap property
-heap.sort()
-print(heap)  # Should be sorted, e.g., [0, 1, 1, 3, 4, 5]
-print(heap.extract_min())  # Should return 0
-heap.decrease_key(2, 2)  # Assuming index 2 is valid
-heap.increase_key(1, 10)
-heap.delete(0)
+        
